@@ -1,38 +1,70 @@
+// 配置Gradle插件
 plugins {
+    // 引用Android应用插件
     alias(libs.plugins.android.application)
 }
 
+// 配置Android项目
 android {
+    // 设置应用的名称空间
     namespace 'com.example.xczutil'
+    // 设置编译SDK的版本
     compileSdk 34
 
+    // 配置默认的应用属性
     defaultConfig {
+        // 应用的包名
         applicationId "com.example.xczutil"
-        minSdk 33
-        targetSdk 34
+        // 设置最低支持的SDK版本
+        minSdk 26
+        // 设置目标SDK版本
+        targetSdk 33
+        // 设置版本号
         versionCode 1
+        // 设置版本名称
         versionName "1.0"
 
+        // 配置测试运行器
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
-    buildTypes {
+    signingConfigs {
         release {
-            minifyEnabled false
+            keyAlias 'smliegame'
+            keyPassword '125805'
+            storeFile file("D:\\android\\keys\\smliegame.jks")
+            storePassword '125805'
+        }
+    }
+    // 配置构建类型
+    buildTypes {
+        // 配置发布版本
+        release {
+            shrinkResources true
+            // 代码混淆
+            minifyEnabled true
+            // 设置混淆规则文件
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    // 配置编译选项
     compileOptions {
+        // 设置源代码兼容性
         sourceCompatibility JavaVersion.VERSION_1_8
+        // 设置目标代码兼容性
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
+// 配置依赖关系
 dependencies {
-
-    implementation libs.appcompat
+    // 从'libs'目录加载本地库文件
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    // 引入Material Design库
     implementation libs.material
-    testImplementation libs.junit
-    androidTestImplementation libs.ext.junit
+    // 引入JUnit测试库
+    //testImplementation libs.junit
+    // 引入Android JUnit扩展测试库
+    //androidTestImplementation libs.ext.junit
+    // 引入Espresso测试库
     androidTestImplementation libs.espresso.core
 }

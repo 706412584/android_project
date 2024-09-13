@@ -1,23 +1,38 @@
+// 配置插件管理，用于集中管理和版本控制项目中使用的Gradle插件
 pluginManagement {
+    // 定义插件仓库
     repositories {
+        // 配置Google插件仓库
         google {
+            // 定义仓库内容包含的组
             content {
+                // 包含组以正则表达式匹配的插件
                 includeGroupByRegex("com\\.android.*")
                 includeGroupByRegex("com\\.google.*")
                 includeGroupByRegex("androidx.*")
             }
         }
+        // 添加Maven Central仓库
         mavenCentral()
+        // 添加Gradle插件仓库
         gradlePluginPortal()
     }
 }
+
+// 配置依赖解析管理，确保项目依赖的一致性和可靠性
 dependencyResolutionManagement {
+    // 设置仓库模式，禁止项目独立设置仓库
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    // 定义依赖仓库
     repositories {
+        // 添加Google仓库
         google()
+        // 添加Maven Central仓库
         mavenCentral()
     }
 }
 
+// 设置根项目的名称
 rootProject.name = "xczutil"
+// 包含子项目
 include ':app'
